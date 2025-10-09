@@ -71,8 +71,8 @@ jobs:
       - name: data-factory-deploy
         uses: Azure/data-factory-deploy-action@v1.2.0
         with:
-          resourceGroupName: rg-test-uksouth-cicd
-          dataFactoryName: adf-test-uksouth-cicd
+          resourceGroupName: cicd
+          dataFactoryName: shirtarget
           armTemplateFile: ExportedArmTemplate/ARMTemplateForFactory.json
           armTemplateParametersFile: ExportedArmTemplate/ARMTemplateParametersForFactory.json
           #additionalParameters: #ls_az_keyvault_properties_typeProperties_baseUrl=https://kv-adf-test-dataplatform.vault.azure.net/ ls_az_datalake_kv_properties_typeProperties_url=https://sadltestuksouth.dfs.core.windows.net
