@@ -1,0 +1,9 @@
+{
+	"name": "SHIRsource",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "11549c69-a078-4d58-a94d-af5eb9c2303d",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}
