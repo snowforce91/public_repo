@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - git_main
+      - main
 
 permissions:
   id-token: write
