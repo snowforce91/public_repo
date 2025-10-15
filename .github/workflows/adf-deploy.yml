@@ -43,10 +43,20 @@ jobs:
           # Optional: create RG if not exists
           #az group create -n ${{ secrets.AZURE_RESOURCE_GROUP }} -l ${{ secrets.AZURE_REGION }}
 
+      - name: Update ADF parameter file for target
+        run: |
+          echo "Replacing placeholder with actual secret..."
+          sed -i "s|#{prodBlobConnectionString}#|${{ secrets.PROD_BLOB_CONN }}|" SHIRsource/ARMTemplateParametersForFactory-prod.json
+
+
           az deployment group create \
             --name "adf-deploy-${{ github.run_number }}" \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file SHIRsource/ARMTemplateForFactory.json \
-            --parameters SHIRsource/ARMTemplateParametersForFactory-prod.json      #\
+            --parameters @SHIRsource/ARMTemplateParametersForFactory-prod.json    
+            
+            
+            
+            #\
                # factoryName="SHIRtarget" \
                # AzureBlobStorage1_connectionString="${{ secrets.PROD_BLOB_CONN }}"
