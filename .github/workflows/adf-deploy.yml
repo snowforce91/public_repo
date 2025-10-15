@@ -46,7 +46,7 @@ jobs:
           az deployment group create \
             --name "adf-deploy-${{ github.run_number }}" \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --template-file SHIRsource/ARMTemplateForFactory.json) \
+            --template-file SHIRsource/ARMTemplateForFactory.json \
             --parameters \
                 factoryName="SHIRtarget" \
                 AzureBlobStorage1_connectionString="${{ secrets.PROD_BLOB_CONN }}"
