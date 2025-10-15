@@ -47,6 +47,6 @@ jobs:
             --name "adf-deploy-${{ github.run_number }}" \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file SHIRsource/ARMTemplateForFactory.json \
-            --parameters \
-                factoryName="SHIRtarget" \
-                AzureBlobStorage1_connectionString="${{ secrets.PROD_BLOB_CONN }}"
+            --parameters SHIRsource/ARMTemplateParametersForFactory-prod.json      #\
+               # factoryName="SHIRtarget" \
+               # AzureBlobStorage1_connectionString="${{ secrets.PROD_BLOB_CONN }}"
