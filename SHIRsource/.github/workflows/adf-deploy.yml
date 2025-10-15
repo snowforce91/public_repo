@@ -1,0 +1,40 @@
+name: Deploy ADF to Next Environment (Inline Params)
+
+on:
+  push:
+    branches:
+      - adf_publish   # Deploy automatically when adf_publish updates
+
+jobs:
+  deploy-adf:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout adf_publish branch
+        uses: actions/checkout@v4
+        with:
+          ref: adf_publish
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy ADF ARM Template with Inline Parameters
+        run: |
+          echo "Deploying ADF ARM template with inline parameters..."
+          az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+          # Optional: create RG if not exists
+          #az group create -n ${{ secrets.AZURE_RESOURCE_GROUP }} -l ${{ secrets.AZURE_REGION }}
+
+          az deployment group create \
+            --name "adf-deploy-${{ github.run_number }}" \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --template-file adf_publish/ARMTemplateForFactory.json \
+            --parameters \
+                factoryName="SHIRtarget" \
+                AzureBlobStorage1_connectionString="${{ secrets.PROD_BLOB_CONN }}"
